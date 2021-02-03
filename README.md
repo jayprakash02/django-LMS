@@ -1,3 +1,3 @@
-# Demo Django Docker NGINX Production Deployment
+# Django LMS
 
 LMS Project on Django Production Ready with Docker.
