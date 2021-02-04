@@ -1,6 +1,7 @@
 from django.db import models
 from rest_framework import serializers
-
+from django.dispatch import receiver
+import os
 class Author(models.Model):
     name = models.CharField(max_length=20)
     codename = models.CharField(max_length=7)
@@ -9,7 +10,7 @@ class Author(models.Model):
     bio = models.TextField()
 
     def __str__(self):
-        return '{self.name}:({self.codename})'
+        return '{}:({})'.format(self.name,self.codename)
 
 
 class Video(models.Model):
@@ -66,4 +67,18 @@ class Comment(models.Model):
     class Meta:
         ordering = ['timestamp']
     def __str__(self):
-        return 'Comment by {self.name} : {self.comment}'
+        return 'Comment by {} : {}'.format(self.name, self.comment)
+
+@receiver(models.signals.post_delete, sender=Video)
+def auto_delete_file_on_delete(sender, instance, **kwargs):
+    """
+    Deletes video and image from filesystem
+    when corresponding `Video` object is deleted.
+    """
+    if instance.video:
+        if os.path.isfile(instance.video.path):
+            os.remove(instance.video.path)
+
+    if instance.image:
+        if os.path.isfile(instance.image.path):
+            os.remove(instance.image.path)
