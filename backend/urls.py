@@ -16,6 +16,9 @@ urlpatterns = [
 
     # http://localhost:8000/api/admin/
     path('api/admin/', admin.site.urls),
+
+    #Django-allauth
+    path('accounts/', include('allauth.urls')),
 ]
 
 

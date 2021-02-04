@@ -1,6 +1,17 @@
 from django.db import models
 from rest_framework import serializers
 
+class Author(models.Model):
+    name = models.CharField(max_length=20)
+    codename = models.CharField(max_length=7)
+    address = models.CharField(max_length=50)
+    image = models.ImageField(upload_to='profile/')
+    bio = models.TextField()
+
+    def __str__(self):
+        return '{self.name}:({self.codename})'
+
+
 class Video(models.Model):
     """Model definition for Video."""
 
@@ -9,7 +20,7 @@ class Video(models.Model):
     video = models.FileField(upload_to='videos/')
     image = models.ImageField(upload_to='images/')
     timestamp = models.DateTimeField(auto_now_add=True)
-
+    author = models.ForeignKey(Author,on_delete=models.CASCADE,related_name='comments',null=True)
     class Meta:
         """Meta definition for Video."""
 
