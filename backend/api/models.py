@@ -1,0 +1,58 @@
+from django.db import models
+from rest_framework import serializers
+
+class Video(models.Model):
+    """Model definition for Video."""
+
+    title = models.CharField(max_length=20)
+    desc = models.CharField(max_length=100)
+    video = models.FileField(upload_to='videos/')
+    image = models.ImageField(upload_to='images/')
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        """Meta definition for Video."""
+
+        verbose_name = 'Video'
+        verbose_name_plural = 'Videos'
+
+    def __str__(self):
+        return self.title
+
+class Course(models.Model):
+    """Model definition for Course."""
+    slug =  models.SlugField(unique=True)
+    title = models.CharField(max_length=30)
+    desc = models.TextField()
+    video = models.ManyToManyField(Video)
+    image = models.ImageField(upload_to='images/')
+    paid = models.BooleanField(default=False)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        """Meta definition for Course."""
+        ordering = ['timestamp']
+        verbose_name = 'Course'
+        verbose_name_plural = 'Courses'
+
+    def __str__(self):
+        return self.title
+
+    def _isPaid(self):
+        return self.paid
+    
+    def _courseUrl(self):
+        return reverse("core:course", kwargs={
+            'slug': self.slug
+        })
+
+class Comment(models.Model):
+    video = models.ForeignKey(Video,on_delete=models.CASCADE,related_name='comments')
+    name = models.CharField(max_length=15,null=True,blank=True)
+    comment = models.CharField(max_length=100)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['timestamp']
+    def __str__(self):
+        return 'Comment by {self.name} : {self.comment}'
