@@ -2,6 +2,8 @@ from django.db import models
 from rest_framework import serializers
 from django.dispatch import receiver
 import os
+
+
 class Author(models.Model):
     name = models.CharField(max_length=20)
     codename = models.CharField(max_length=7)
@@ -23,26 +25,46 @@ class Video(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(Author,on_delete=models.CASCADE,related_name='comments',null=True)
     class Meta:
-        """Meta definition for Video."""
-
         verbose_name = 'Video'
         verbose_name_plural = 'Videos'
 
     def __str__(self):
         return self.title
 
+
+class Doc(models.Model):
+    slug = models.SlugField(unique=True)
+    title = models.CharField(max_length=30)
+    desc = models.TextField()
+    draft = models.BooleanField(default=False)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering=['timestamp']
+        verbose_name = 'Doc'
+        verbose_name_plural = 'Docs'
+
+    def _isPub(self):
+        return not(self.draft)
+    
+    def _isDraft(self):
+        return self.draft
+
+    def __str__(self):
+        return self.title
+
+
 class Course(models.Model):
-    """Model definition for Course."""
     slug =  models.SlugField(unique=True)
     title = models.CharField(max_length=30)
     desc = models.TextField()
     video = models.ManyToManyField(Video)
     image = models.ImageField(upload_to='images/')
+    doc = models.OneToOneField(Doc,on_delete=models.CASCADE,default=False)
     paid = models.BooleanField(default=False)
     timestamp = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        """Meta definition for Course."""
         ordering = ['timestamp']
         verbose_name = 'Course'
         verbose_name_plural = 'Courses'
@@ -58,6 +80,7 @@ class Course(models.Model):
             'slug': self.slug
         })
 
+
 class Comment(models.Model):
     video = models.ForeignKey(Video,on_delete=models.CASCADE,related_name='comments')
     name = models.CharField(max_length=15,null=True,blank=True)
@@ -68,6 +91,7 @@ class Comment(models.Model):
         ordering = ['timestamp']
     def __str__(self):
         return 'Comment by {} : {}'.format(self.name, self.comment)
+
 
 @receiver(models.signals.post_delete, sender=Video)
 def auto_delete_file_on_delete(sender, instance, **kwargs):
