@@ -12,7 +12,9 @@
           class="order-2 order-md-2 col-12 col-md-10 col-lg-10 min-height min-page-height py-3"
         >
           <div class="">
-            <h1 class="d-block">Project</h1>
+            <div class="d-flex">
+              <div class="flex-grow-1"><h1>Projects</h1></div>
+            </div>
             <div class="row">
               <projectCard />
             </div>
@@ -53,5 +55,11 @@ export default {
 .pt-3,
 .py-3 {
   padding-top: 1rem !important;
+}
+.btn-outline-secondary {
+  color: #6c757d;
+  background-color: transparent;
+  background-image: none;
+  border-color: #6c757d;
 }
 </style>
