@@ -1,8 +1,8 @@
 from django.db import models
 from rest_framework import serializers
 from django.dispatch import receiver
+from taggit.managers import TaggableManager
 import os
-
 
 class Author(models.Model):
     name = models.CharField(max_length=20)
@@ -24,6 +24,8 @@ class Video(models.Model):
     image = models.ImageField(upload_to='images/')
     timestamp = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(Author,on_delete=models.CASCADE,related_name='comments',null=True)
+    tags = TaggableManager()
+
     class Meta:
         verbose_name = 'Video'
         verbose_name_plural = 'Videos'
@@ -38,6 +40,7 @@ class Doc(models.Model):
     desc = models.TextField()
     draft = models.BooleanField(default=False)
     timestamp = models.DateTimeField(auto_now_add=True)
+    tags = TaggableManager()
 
     class Meta:
         ordering=['timestamp']
@@ -63,6 +66,7 @@ class Course(models.Model):
     doc = models.OneToOneField(Doc,on_delete=models.CASCADE,default=False)
     paid = models.BooleanField(default=False)
     timestamp = models.DateTimeField(auto_now_add=True)
+    tags = TaggableManager()
 
     class Meta:
         ordering = ['timestamp']
