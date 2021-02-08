@@ -12,7 +12,9 @@
           class="order-2 order-md-2 col-12 col-md-10 col-lg-10 min-height min-page-height py-3"
         >
           <div class="">
-            <h1 class="d-block">Blog</h1>
+            <div class="d-flex">
+              <div class="flex-grow-1"><h1>Blog</h1></div>
+            </div>
           </div>
           <div class="row">
             <div class="col-md-9">
@@ -24,10 +26,9 @@
                   <div class="false card">
                     <div class="card-header">Trending</div>
                     <div class="list-group list-group-flush">
-                      <a
-                        class="list-group-item"
-                        href="#"
-                        >Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis, error.</a
+                      <a class="list-group-item" href="#"
+                        >Lorem ipsum dolor sit amet consectetur adipisicing
+                        elit. Corporis, error.</a
                       >
                     </div>
                   </div>
@@ -36,10 +37,9 @@
                   <div class="false card">
                     <div class="card-header">Discover</div>
                     <div class="list-group list-group-flush">
-                      <a
-                        class="list-group-item"
-                        href="#"
-                        >Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid, corrupti.</a
+                      <a class="list-group-item" href="#"
+                        >Lorem ipsum dolor sit amet consectetur adipisicing
+                        elit. Aliquid, corrupti.</a
                       >
                     </div>
                   </div>
@@ -48,10 +48,9 @@
                   <div class="false card">
                     <div class="card-header">Featured</div>
                     <div class="list-group list-group-flush">
-                      <a
-                        class="list-group-item"
-                        href="#"
-                        >Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis, corporis.</a
+                      <a class="list-group-item" href="#"
+                        >Lorem ipsum dolor sit amet consectetur adipisicing
+                        elit. Perferendis, corporis.</a
                       >
                     </div>
                   </div>

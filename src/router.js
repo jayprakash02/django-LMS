@@ -6,6 +6,8 @@ import Project from '@/View/Project.vue'
 import Enroll from '@/View/Enroll.vue'
 import Login from '@/View/Login.vue'
 import Blog from '@/View/Blog.vue'
+import Topic from '@/View/Topic.vue'
+import Question from '@/View/Question.vue'
 
 Vue.use(Router)
 
@@ -40,6 +42,16 @@ export default new Router({
       path: '/blog',
       name: 'blog',
       component: Blog
+    },
+    {
+      path: '/topic',
+      name: 'topic',
+      component: Topic
+    },
+    {
+      path: '/questions',
+      name: 'question',
+      component: Question
     },
   ]
 })
