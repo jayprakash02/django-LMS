@@ -20,23 +20,17 @@
       >
     </ul>
     <ul class="mb-4 list-group">
-      <a
+      <router-link
         class="border-0 list-group-item px-2 pointer"
         :class="{ active: activeTab === 'Topic' }"
         to="/topic"
-        >Topic</a
+        >Topic</router-link
       >
-      <a
+      <router-link
         class="border-0 list-group-item px-2 pointer"
         :class="{ active: activeTab === 'Question' }"
         to="/questions"
-        >Questions</a
-      >
-      <a
-        class="border-0 list-group-item px-2 pointer"
-        :class="{ active: activeTab === 'Blocks' }"
-        to="/blocks"
-        >Code Blocks</a
+        >Questions</router-link
       >
     </ul>
   </div>
