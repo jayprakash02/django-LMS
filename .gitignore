@@ -4,6 +4,9 @@ db.sqlite3
 /dist
 /lms
 __pycache__
+/media
+backend/api/migrations/
+.vscode
 
 # local env files
 .env.local
