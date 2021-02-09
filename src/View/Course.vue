@@ -12,11 +12,17 @@
           class="order-2 order-md-2 col-12 col-md-10 col-lg-10 min-height min-page-height py-3"
         >
           <div class="">
-            <div class="d-flex">
+            <div class="d-block">
               <div class="flex-grow-1"><h1>Course</h1></div>
             </div>
             <div class="row">
-              <courseCard />
+              <p v-if="courses.length === 0">No Courses</p>
+              <div
+                v-for="(course, index) in courses"
+                :key="index"
+              >
+                <courseCard :title="course.title" :description="course.desc" :imageUrl="course.image" />
+              </div>
             </div>
           </div>
         </div>
@@ -29,12 +35,21 @@
 import Navbar from "@/components/Navbar.vue";
 import SecondNav from "@/components/SecondNav.vue";
 import courseCard from "@/components/CourseCard.vue";
+
+import { mapState } from "vuex";
+
 export default {
   name: "course",
   components: {
     Navbar,
     SecondNav,
-    courseCard,
+    courseCard
+  },
+  computed: mapState({
+    courses: (state) => state.courses.courses,
+  }),
+  created() {
+    this.$store.dispatch("courses/getCourses");
   },
 };
 </script>
