@@ -5,10 +5,10 @@ from rest_framework import routers
 from django.conf import settings
 from django.conf.urls.static import static
 
-from .api.views import index_view
+from .api.viewsets import *
 
 router = routers.DefaultRouter()
-#router.register('messages', MessageViewSet)
+router.register('course', CourseViewSet)
 
 urlpatterns = [
     # http://localhost:8000/
