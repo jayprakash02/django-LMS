@@ -20,7 +20,7 @@ class Video(models.Model):
 
     title = models.CharField(max_length=20)
     desc = models.CharField(max_length=100)
-    video = models.FileField(upload_to='videos/')
+    video = models.URLField(unique=True)
     image = models.ImageField(upload_to='images/')
     timestamp = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(Author,on_delete=models.CASCADE,related_name='comments',null=True)
