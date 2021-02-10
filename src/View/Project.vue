@@ -15,6 +15,17 @@
             <div class="d-flex">
               <div class="flex-grow-1"><h1>Projects</h1></div>
             </div>
+            <div class="row text-center">
+              <div class="col-12 mb-3">
+                <input
+                  v-model="search"
+                  type="text"
+                  class="form-control border false"
+                  placeholder="Search..."
+                  @change="searchProjects(search)"
+                />
+              </div>
+            </div>
             <div class="row">
               <p v-if="projects.length === 0">No Projects</p>
               <div v-for="(project, index) in projects" :key="index">
@@ -37,10 +48,15 @@ import Navbar from "@/components/Navbar.vue";
 import SecondNav from "@/components/SecondNav.vue";
 import projectCard from "@/components/ProjectCard.vue";
 
-import { mapState } from "vuex";
+import { mapState,mapActions } from "vuex";
 
 export default {
   name: "project",
+  data(){
+return{
+  search:""
+}
+  },
   components: {
     Navbar,
     SecondNav,
@@ -49,6 +65,7 @@ export default {
   computed: mapState({
     projects: (state) => state.projects.projects,
   }),
+  methods: mapActions("projects",["searchProjects"]),
   created() {
     this.$store.dispatch("projects/getProjects");
   },

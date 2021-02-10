@@ -16,6 +16,12 @@ const actions = {
     .then(projects => {
       commit('setProjects', projects)
     })
+  },
+  searchProjects({commit},item){
+    projectService.searchProjects(item)
+    .then(projects => {
+      commit('setProjects',projects)
+    })
   }
 }
 

@@ -16,6 +16,12 @@ const actions = {
     .then(courses => {
       commit('setCourses', courses)
     })
+  },
+  searchCourses({commit},item){
+    courseService.searchCourses(item)
+    .then(courses => {
+      commit('setCourses',courses)
+    })
   }
 }
 
