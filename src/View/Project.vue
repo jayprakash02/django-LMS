@@ -16,7 +16,14 @@
               <div class="flex-grow-1"><h1>Projects</h1></div>
             </div>
             <div class="row">
-              <projectCard />
+              <p v-if="projects.length === 0">No Projects</p>
+              <div v-for="(project, index) in projects" :key="index">
+                <projectCard
+                  :title="project.title"
+                  :description="project.desc"
+                  :imageUrl="project.image"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -29,12 +36,21 @@
 import Navbar from "@/components/Navbar.vue";
 import SecondNav from "@/components/SecondNav.vue";
 import projectCard from "@/components/ProjectCard.vue";
+
+import { mapState } from "vuex";
+
 export default {
   name: "project",
   components: {
     Navbar,
     SecondNav,
     projectCard,
+  },
+  computed: mapState({
+    projects: (state) => state.projects.projects,
+  }),
+  created() {
+    this.$store.dispatch("projects/getProjects");
   },
 };
 </script>
