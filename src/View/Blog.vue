@@ -18,7 +18,16 @@
           </div>
           <div class="row">
             <div class="col-md-9">
-              <BlogCard />
+              <p v-if="videos.length === 0">No Videos</p>
+              <div v-for="(video, index) in videos" :key="index">
+                <BlogCard
+                  :title="video.title"
+                  :description="video.desc"
+                  :imageUrl="video.image"
+                  :timestamp="video.timestamp"
+                  :videoUrl="video.video"
+                />
+              </div>
             </div>
             <div class="col-md-3">
               <div>
@@ -68,12 +77,21 @@
 import Navbar from "@/components/Navbar.vue";
 import SecondNav from "@/components/SecondNav.vue";
 import BlogCard from "@/components/BlogCard.vue";
+
+import { mapState } from "vuex";
+
 export default {
   name: "blog",
   components: {
     Navbar,
     SecondNav,
     BlogCard,
+  },
+  computed: mapState({
+    videos: (state) => state.videos.videos,
+  }),
+  created() {
+    this.$store.dispatch("videos/getVideos");
   },
 };
 </script>
