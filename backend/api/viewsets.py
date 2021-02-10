@@ -1,6 +1,6 @@
 from django.views.generic import TemplateView
 from django.views.decorators.cache import never_cache
-from rest_framework import viewsets
+from rest_framework import viewsets,filters
 from .serializers import *
 from .models import *
 
@@ -16,9 +16,13 @@ class DocViewSet(viewsets.ModelViewSet):
     serializer_class = DocSerializer
 
 class CourseViewSet(viewsets.ModelViewSet):
+    search_fields = ['title']
+    filter_backends = (filters.SearchFilter,)
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
 
 class ProjectViewSet(viewsets.ModelViewSet):
+    search_fields = ['title','desc']
+    filter_backends = (filters.SearchFilter,)
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
