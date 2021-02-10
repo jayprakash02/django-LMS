@@ -13,14 +13,12 @@
           /></a>
         </div>
         <div class="col-md-8 px-3">
-          <div class="card-block px-3">
-            <h4 class="card-title undefined">
+          <div class="card-block px-3 card-body">
+            <h4 class="card-title">
               <a class="mr-2" href="#">{{ title }}</a>
             </h4>
-            <div class="markdown-preview jm-markdown">
-              <p>
-                {{ description }}
-              </p>
+            <div class="undefined markdown-preview jm-markdown">
+              <div v-html="description" ></div>
             </div>
             <a class="mr-2 btn btn-outline-cfe" href="#"
               >View</a

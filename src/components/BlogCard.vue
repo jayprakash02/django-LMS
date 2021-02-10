@@ -3,16 +3,16 @@
     <a href="#"
       ><img
         class="card-img-top"
-        src="@/assets/blogcard.jpg"
-        alt="But what are Django signals? logo"
+        :src="imageUrl"
+        :alt="title"
     /></a>
     <div class="">
       <h1>
-        <a href="#">But what are Django signals?</a>
+        <a href="#">{{ title }}</a>
       </h1>
       <div>
-        <p class="mb-2 pb-0">
-          <span format="ll">Jan 27, 2021</span><span class="mx-1">·</span
+        <!--p class="mb-2 pb-0">
+          <span format="ll">{{ timestamp }}</span><span class="mx-1">·</span
           ><a href="#">Justin Mitchel</a><span class="mx-1">·</span
           ><a class="text-muted mr-1" href="#"
             >Common Questions</a
@@ -24,7 +24,7 @@
           ><a class="text-muted mr-1" href="#">Python</a
           ><span class="mx-1">·</span
           ><a class="text-muted mr-1" href="#">signals</a>
-        </p>
+        </p-->
       </div>
       <hr />
       <div>
@@ -32,8 +32,9 @@
           <div class="undefined">
             <div class="embed-responsive embed-responsive-16by9 mb-3">
               <iframe
-                src="https://www.youtube.com/embed/rEX50LJrFuU"
-                title="https://www.youtube.com/embed/rEX50LJrFuU"
+                :src="videoUrl"
+                :title="videoUrl"
+                :alt="title"
                 class="embed-responsive-item"
                 width="560"
                 height="315"
@@ -45,11 +46,7 @@
             </div>
           </div>
         </div>
-        <a
-          class="btn btn-sm btn-cfe my-4"
-          href="#"
-          >View Post</a
-        >
+        <hr />
       </div>
     </div>
   </div>
@@ -57,6 +54,13 @@
 <script>
 export default {
   name: "blogCard",
+  props:{
+    title: String,
+    description: String,
+    imageUrl: String,
+    timestamp:String,
+    videoUrl:String,
+  }
 };
 </script>
 <style scoped>

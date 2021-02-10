@@ -3,35 +3,16 @@
     <div class="card border-0 false">
       <a href="#"
         ><img
-          src="@/assets/projectcard.jpg"
+          :src="imageUrl"
           class="card-img-top"
-          alt="FastAPI &amp; Airtable logo"
+          :alt="title"
       /></a>
-      <div class="card-body false">
+      <div class="card-body">
         <h4 class="card-title">
-          <a href="#">FastAPI &amp; Airtable</a>
+          <a href="#">{{ title }}</a>
         </h4>
         <div class="undefined markdown-preview jm-markdown">
-          <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Error beatae officiis tempora optio quibusdam vero a neque laboriosam at consequuntur!
-          </p>
-         <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Error beatae officiis tempora optio quibusdam vero a neque laboriosam at consequuntur!
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Error beatae officiis tempora optio quibusdam vero a neque laboriosam at consequuntur!
-          </p>
-          <ul>
-            <li>Python 3.6 (and up)</li>
-            <li>FastAPI</li>
-            <li>Python Requests</li>
-            <li>FastAPI Forms</li>
-            <li>Jinja Templates</li>
-            <li>And more</li>
-          </ul>
-          <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Error beatae officiis tempora optio quibusdam vero a neque laboriosam at consequuntur!
-          </p>
+          <div v-html="description" ></div>
           <p>
             <a
               target="_self"
@@ -48,6 +29,11 @@
 <script>
 export default {
   name: "projectCard",
+  props:{
+    title:String,
+    description:String,
+    imageUrl:String
+  }
 };
 </script>
 <style scoped>
