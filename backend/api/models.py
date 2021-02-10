@@ -61,7 +61,7 @@ class Course(models.Model):
     slug =  models.SlugField(unique=True)
     title = models.CharField(max_length=30)
     desc = models.TextField()
-    video = models.ManyToManyField(Video,null=True)
+    video = models.ManyToManyField(Video)
     image = models.ImageField(upload_to='images/')
     doc = models.OneToOneField(Doc,on_delete=models.CASCADE,default=False,null=True)
     paid = models.BooleanField(default=False)
@@ -84,6 +84,32 @@ class Course(models.Model):
             'slug': self.slug
         })
 
+class Project(models.Model):
+    slug =  models.SlugField(unique=True)
+    title = models.CharField(max_length=30)
+    desc = models.TextField()
+    video = models.ManyToManyField(Video)
+    image = models.ImageField(upload_to='images/')
+    doc = models.OneToOneField(Doc,on_delete=models.CASCADE,default=False,null=True)
+    paid = models.BooleanField(default=False)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    tags = TaggableManager()
+
+    class Meta:
+        ordering = ['timestamp']
+        verbose_name = 'Project'
+        verbose_name_plural = 'Projects'
+
+    def __str__(self):
+        return self.title
+
+    def _isPaid(self):
+        return self.paid
+    
+    def _courseUrl(self):
+        return reverse("core:Project", kwargs={
+            'slug': self.slug
+        })
 
 class Comment(models.Model):
     video = models.ForeignKey(Video,on_delete=models.CASCADE,related_name='comments')
