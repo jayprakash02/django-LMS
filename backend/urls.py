@@ -8,7 +8,11 @@ from django.conf.urls.static import static
 from .api.viewsets import *
 
 router = routers.DefaultRouter()
+router.register('doc', DocViewSet)
 router.register('course', CourseViewSet)
+router.register('video', VideoViewSet)
+router.register('project', ProjectViewSet)
+
 
 urlpatterns = [
     # http://localhost:8000/
