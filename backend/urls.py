@@ -28,9 +28,9 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
 
     #Django-rest-auth
-    path('rest-auth/', include('rest_auth.urls')),
-    path(r'rest-auth/registration/', include('rest_auth.registration.urls')),
-    
+    path('api/rest-auth/', include('rest_auth.urls')),
+    path('api/rest-auth/registration/', include('rest_auth.registration.urls')),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
