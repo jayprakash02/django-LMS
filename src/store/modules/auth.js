@@ -1,7 +1,12 @@
 import api from '../../services/api'
 
 const state = {
-    key: null
+    key: null,
+    pk: null,
+    username: null,
+    email: null,
+    first_name: null,
+    last_name: null,
 }
 const getters = {
     loggedIn(state) {
@@ -28,14 +33,39 @@ const actions = {
                     reject(err)
                 })
         })
+    },
+    getCredential(context) {
+        return new Promise((resolve, reject) => {
+            return api.get('rest-auth/user/')
+                .then(response => {
+                    context.commit('updateCredential', { pk: response.data.pk, username: response.data.username, first_name: response.data.first_name, last_name: response.data.last_name, email: response.data.email })
+                    resolve()
+                })
+                .catch(err =>{
+                    reject(err)
+                })
+
+        })
     }
 }
 const mutations = {
     updateStorage(state, { key }) {
         state.key = key
     },
+    updateCredential(state, { pk,username,first_name,last_name,email }) {
+        state.pk = pk
+        state.username = username
+        state.first_name = first_name
+        state.last_name = last_name
+        state.email = email
+    },
     destroyToken(state) {
         state.key = null
+        state.pk = null
+        state.username = null
+        state.first_name = null
+        state.last_name = null
+        state.email = null
     }
 }
 
