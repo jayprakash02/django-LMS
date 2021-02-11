@@ -4,12 +4,14 @@
     <div class="col-10 col-md-3 mx-auto text-center mt-4">
       <h1>Login</h1>
       <div>
-          <p v-if="incorrectAuth">Incorrect username or password entered - please try again</p>
+        <p v-if="incorrectAuth">
+          Incorrect username or password entered - please try again
+        </p>
         <form class="mt-4" v-on:submit.prevent="login">
           <div class="my-2 position-relative form-group">
             <label for="username" class="undefined">Username/Email</label
             ><input
-            v-model="username"
+              v-model="username"
               required=""
               name="username"
               id="username"
@@ -22,7 +24,7 @@
           <div class="my-2 undefined position-relative form-group">
             <label for="passowrd" class="">Password</label
             ><input
-            v-model="password"
+              v-model="password"
               required=""
               name="password"
               id="password"
@@ -50,32 +52,35 @@
 import Navbar from "@/components/Navbar.vue";
 export default {
   name: "login",
-  data(){
-      return{
-          username: '',
-        password: '',
-        incorrectAuth: false
-      }
+  created() {
+    if (this.$store.getters["auth/loggedIn"])
+      this.$router.push({ name: "home" });
+  },
+  data() {
+    return {
+      username: "",
+      password: "",
+      incorrectAuth: false,
+    };
   },
   components: {
     Navbar,
   },
   methods: {
-      login () { 
-        this.$store.dispatch('auth/userLogin', {
+    login() {
+      this.$store
+        .dispatch("auth/userLogin", {
           username: this.username,
-          password: this.password
+          password: this.password,
         })
         .then(() => {
-          this.$router.push({ name: 'course' })
+          this.$router.push({ name: "home" });
         })
-        .catch(err => {
-        // eslint-disable-next-line
-          console.log(err)
-          this.incorrectAuth = true
-        })
-        }
-      }
+        .catch(() => {
+          this.incorrectAuth = true;
+        });
+    },
+  },
 };
 </script>
 <style scoped>
