@@ -1,7 +1,7 @@
 # Django Vue LMS✌️ 🐍
 
-![Vue Logo](/src/assets/logo-vue.png "Vue Logo")
-![Django Logo](/src/assets/logo-django.png "Django Logo")
+
+
 
 
 ### Includes
