@@ -38,9 +38,9 @@
           <p></p>
         </form>
         <div>
-          <p class="lead mt-5"><a class="" href="/signup">Sign up</a></p>
+          <p class="lead mt-5"><a class="" href="">Sign up</a></p>
           <p class="lead mt-3">
-            <a class="" href="/password/reset">Reset Password</a>
+            <a class="" href="">Reset Password</a>
           </p>
         </div>
       </div>
@@ -74,6 +74,7 @@ export default {
           password: this.password,
         })
         .then(() => {
+          this.$store.dispatch("auth/getCredential");
           this.$router.push({ name: "home" });
         })
         .catch(() => {

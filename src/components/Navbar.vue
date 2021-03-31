@@ -50,7 +50,6 @@ export default {
     };
   },
   created() {
-    this.$store.dispatch("auth/getCredential");
     if (this.$store.getters["auth/loggedIn"]) this.log = true;
     mapState({
       username: (state) => state.auth.username,

@@ -9,6 +9,7 @@ import Logout from '@/View/Logout.vue'
 import Blog from '@/View/Blog.vue'
 import Topic from '@/View/Topic.vue'
 import Question from '@/View/Question.vue'
+import Signup from '@/View/Signup.vue'
 
 Vue.use(Router)
 
@@ -38,6 +39,11 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: Login
+    },
+    {
+      path: '/signup',
+      name: 'Signup',
+      component: Signup
     },
     {
       path: '/logout',
