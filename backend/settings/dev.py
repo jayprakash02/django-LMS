@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'rest_auth',
     'rest_auth.registration',
     'taggit',
+    'django_summernote',
     #app
     'backend.api',
 ]
@@ -157,3 +158,5 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # Insert Whitenoise Middleware at top but below Security Middleware
 # MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware',)
 # http://whitenoise.evans.io/en/stable/django.html#make-sure-staticfiles-is-configured-correctly
+
+X_FRAME_OPTIONS = 'SAMEORIGIN'

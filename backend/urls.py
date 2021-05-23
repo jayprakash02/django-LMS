@@ -22,7 +22,7 @@ urlpatterns = [
     path('api/', include(router.urls)),
 
     # http://localhost:8000/api/admin/
-    path('api/admin/', admin.site.urls),
+    path('admin/', admin.site.urls),
 
     #Django-allauth
     path('accounts/', include('allauth.urls')),
@@ -30,6 +30,9 @@ urlpatterns = [
     #Django-rest-auth
     path('api/rest-auth/', include('rest_auth.urls')),
     path('api/rest-auth/registration/', include('rest_auth.registration.urls')),
+
+    #SummoerNote
+    path('summernote/', include('django_summernote.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

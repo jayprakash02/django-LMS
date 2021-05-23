@@ -1,21 +1,14 @@
 from django.contrib import admin
+from django_summernote.admin import SummernoteModelAdmin
 from .models import *
+
 # Register your models here.
-admin.site.register(Video)
+class SummernoteAdmin(SummernoteModelAdmin):
+    summernote_fields = ('desc',)
+
+admin.site.register(Video,SummernoteAdmin)
+admin.site.register(Doc,SummernoteAdmin)
+admin.site.register(Course,SummernoteAdmin)
+admin.site.register(Project,SummernoteAdmin)
 admin.site.register(Comment)
 admin.site.register(Author)
-
-@admin.register(Doc)
-class DocAdmin(admin.ModelAdmin):
-    class Media:
-        js= ('admin/doc.js',)
-
-@admin.register(Course)
-class CourseAdmin(admin.ModelAdmin):
-    class Media:
-        js= ('admin/doc.js',)
-
-@admin.register(Project)
-class ProjectAdmin(admin.ModelAdmin):
-    class Media:
-        js= ('admin/doc.js',)

@@ -19,7 +19,7 @@ class Video(models.Model):
     """Model definition for Video."""
 
     title = models.CharField(max_length=20)
-    desc = models.CharField(max_length=100)
+    desc = models.TextField()
     video = models.URLField(unique=True)
     image = models.ImageField(upload_to='images/')
     timestamp = models.DateTimeField(auto_now_add=True)
