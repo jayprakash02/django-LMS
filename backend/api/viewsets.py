@@ -12,7 +12,9 @@ index_view = never_cache(TemplateView.as_view(template_name='index.html'))
 class VideoViewSet(viewsets.ModelViewSet):
     queryset = Video.objects.all()
     serializer_class = VideoSerializer
-
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ['title']
+    
     @action(detail=False)
     def new(self, request, *args, **kwargs):
         queryset = Video.objects.all().order_by('-timestamp')[:15]
@@ -23,6 +25,7 @@ class DocViewSet(viewsets.ModelViewSet):
     queryset = Doc.objects.all()
     serializer_class = DocSerializer
     filter_backends = (filters.SearchFilter,)
+    search_fields = ['title']
 
     @action(detail=False)
     def new(self, request, *args, **kwargs):
@@ -35,6 +38,7 @@ class CourseViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.SearchFilter,)
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
+    search_fields = ['title']
 
     @action(detail=False)
     def new(self, request, *args, **kwargs):
@@ -48,6 +52,7 @@ class ProjectViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.SearchFilter,)
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
+    search_fields = ['title']
 
     @action(detail=False)
     def new(self, request, *args, **kwargs):

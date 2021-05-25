@@ -3,7 +3,7 @@
     <div class="card border-0">
       <div class="card-body p-0 border-0">
         <a class="btn btn-cfe px-5 py-5 btn-block" href="#"
-          ><span class="lead">Production</span></a
+          ><span class="lead">{{ topic }}</span></a
         >
       </div>
     </div>
@@ -12,6 +12,9 @@
 <script>
 export default {
   name: "topicCard",
+  props:{
+    topic:String,
+  }
 };
 </script>
 <style scoped>

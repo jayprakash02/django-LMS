@@ -26,14 +26,16 @@
                 />
               </div>
             </div>
-            <div class="row">
-              <p v-if="courses.length === 0">No Courses</p>
-              <div v-for="(course, index) in courses" :key="index">
-                <courseCard
-                  :title="course.title"
-                  :description="course.desc"
-                  :imageUrl="course.image"
-                />
+            <div class="col-md-10">
+              <div class="row">
+                <p v-if="courses.length === 0">No Courses</p>
+                <div v-for="(course, index) in courses" :key="index">
+                  <courseCard
+                    :title="course.title"
+                    :description="course.desc"
+                    :imageUrl="course.image"
+                  />
+                </div>
               </div>
             </div>
           </div>

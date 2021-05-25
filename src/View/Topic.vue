@@ -20,15 +20,19 @@
             <div class="row text-center">
               <div class="col-12 mb-3">
                 <input
+                  v-model="search"
                   type="text"
                   class="form-control border false"
                   placeholder="Filter..."
-                  value=""
+                  @change="searchTopics(search)"
                 />
               </div>
             </div>
-            <div class="row">
-              <topicCard />
+            <div class="col-md-10">
+                <p v-if="topics.length === 0">No Topics</p>
+                <div v-for="(topic, index) in topics" :key="index" class="row">
+                  <topicCard :topic="topic.tag_name" />
+              </div>
             </div>
           </div>
         </div>
@@ -41,6 +45,8 @@
 import Navbar from "@/components/Navbar.vue";
 import SecondNav from "@/components/SecondNav.vue";
 import topicCard from "@/components/TopicCard.vue";
+import { mapState, mapActions } from "vuex";
+
 export default {
   name: "topic",
   components: {
@@ -48,9 +54,27 @@ export default {
     SecondNav,
     topicCard,
   },
+  data() {
+    return {
+      search: "",
+    };
+  },
+  computed: mapState({
+    topics: (state) => state.topics.topics,
+  }),
+  methods: mapActions("topics", ["searchTopics"]),
+  created() {
+    this.$store.dispatch("topics/getTopics");
+  },
 };
 </script>
 <style scoped>
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
 .d-block {
   display: block;
 }
