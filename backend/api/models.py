@@ -1,18 +1,23 @@
+from typing import Tuple
 from django.db import models
 from django.dispatch import receiver
 import os
 
 class Tag(models.Model):
-    tag_name = models.CharField(max_length=20)
+    tag_name = models.CharField(max_length=20,blank=True,null=True)
+    timestamp = models.DateTimeField(auto_now_add=True,blank=True,null=True)
+
     class Meta:
         verbose_name = 'Tag'
         verbose_name_plural = 'Tags'
+    def __str__(self):
+        return self.tag_name
 
 class Author(models.Model):
-    name = models.CharField(max_length=20)
-    codename = models.CharField(max_length=7)
-    address = models.CharField(max_length=50)
-    image = models.ImageField(upload_to='profile/')
+    name = models.CharField(max_length=20,blank=True,null=True)
+    codename = models.CharField(max_length=7,blank=True,null=True)
+    address = models.CharField(max_length=50,blank=True,null=True)
+    image = models.ImageField(upload_to='profile/',blank=True,null=True)
     bio = models.TextField()
 
     def __str__(self):
@@ -20,11 +25,11 @@ class Author(models.Model):
 
 
 class Video(models.Model):
-    title = models.CharField(max_length=20)
-    desc = models.TextField()
-    video = models.URLField(unique=True)
-    image = models.ImageField(upload_to='images/')
-    timestamp = models.DateTimeField(auto_now_add=True)
+    title = models.CharField(max_length=100,blank=True,null=True)
+    desc = models.TextField(blank=True,null=True)
+    video = models.URLField(unique=True,blank=True,null=True)
+    image = models.ImageField(upload_to='images/',blank=True,null=True)
+    timestamp = models.DateTimeField(auto_now_add=True,blank=True,null=True)
     author = models.ForeignKey(Author,on_delete=models.CASCADE,related_name='comments',null=True)
     tag = models.ManyToManyField(Tag,related_name='videos_tag')
 
@@ -37,10 +42,10 @@ class Video(models.Model):
 
 
 class Doc(models.Model):
-    title = models.CharField(max_length=30)
-    desc = models.TextField()
-    draft = models.BooleanField(default=False)
-    timestamp = models.DateTimeField(auto_now_add=True)
+    title = models.CharField(max_length=100,blank=True,null=True)
+    desc = models.TextField(blank=True,null=True)
+    draft = models.BooleanField(default=False,blank=True,null=True)
+    timestamp = models.DateTimeField(auto_now_add=True,blank=True,null=True)
     tag = models.ManyToManyField(Tag,related_name='doc_tag')
 
     class Meta:
@@ -53,13 +58,13 @@ class Doc(models.Model):
 
 
 class Course(models.Model):
-    title = models.CharField(max_length=30)
-    desc = models.TextField()
+    title = models.CharField(max_length=100,blank=True,null=True)
+    desc = models.TextField(blank=True,null=True)
     video = models.ManyToManyField(Video)
-    image = models.ImageField(upload_to='images/')
-    doc = models.OneToOneField(Doc,on_delete=models.CASCADE,default=False,null=True)
-    paid = models.BooleanField(default=False)
-    timestamp = models.DateTimeField(auto_now_add=True)
+    image = models.ImageField(upload_to='images/',blank=True,null=True)
+    doc = models.OneToOneField(Doc,on_delete=models.CASCADE,blank=True,null=True)
+    paid = models.BooleanField(default=False,blank=True,null=True)
+    timestamp = models.DateTimeField(auto_now_add=True,blank=True,null=True)
     tag = models.ManyToManyField(Tag,related_name='course_tag')
 
     class Meta:
@@ -72,7 +77,7 @@ class Course(models.Model):
     
 
 class Project(models.Model):
-    title = models.CharField(max_length=30,blank=True,null=True)
+    title = models.CharField(max_length=100,blank=True,null=True)
     desc = models.TextField(blank=True,null=True)
     video = models.ManyToManyField(Video)
     image = models.ImageField(upload_to='images/',blank=True,null=True)

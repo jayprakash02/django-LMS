@@ -12,6 +12,7 @@ router.register('doc', DocViewSet)
 router.register('course', CourseViewSet)
 router.register('video', VideoViewSet)
 router.register('project', ProjectViewSet)
+router.register('tag', TagViewSet)
 
 
 urlpatterns = [

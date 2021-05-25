@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'taggit',
     'django_summernote',
     'import_export',
+    'django_filters',
     #app
     'backend.api',
 ]
@@ -161,3 +162,11 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # http://whitenoise.evans.io/en/stable/django.html#make-sure-staticfiles-is-configured-correctly
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ),
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
+}

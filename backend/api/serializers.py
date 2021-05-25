@@ -20,3 +20,8 @@ class ProjectSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Project
         fields = ('url', 'title', 'desc', 'image', 'timestamp','video','doc')
+
+class TagSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Tag
+        fields = '__all__'
