@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'rest_auth.registration',
     'taggit',
     'django_summernote',
+    'import_export',
     #app
     'backend.api',
 ]

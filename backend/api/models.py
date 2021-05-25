@@ -1,8 +1,12 @@
 from django.db import models
-from rest_framework import serializers
 from django.dispatch import receiver
-from taggit.managers import TaggableManager
 import os
+
+class Tag(models.Model):
+    tag_name = models.CharField(max_length=20)
+    class Meta:
+        verbose_name = 'Tag'
+        verbose_name_plural = 'Tags'
 
 class Author(models.Model):
     name = models.CharField(max_length=20)
@@ -16,15 +20,13 @@ class Author(models.Model):
 
 
 class Video(models.Model):
-    """Model definition for Video."""
-
     title = models.CharField(max_length=20)
     desc = models.TextField()
     video = models.URLField(unique=True)
     image = models.ImageField(upload_to='images/')
     timestamp = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(Author,on_delete=models.CASCADE,related_name='comments',null=True)
-    tags = TaggableManager()
+    tag = models.ManyToManyField(Tag,related_name='videos_tag')
 
     class Meta:
         verbose_name = 'Video'
@@ -35,30 +37,22 @@ class Video(models.Model):
 
 
 class Doc(models.Model):
-    slug = models.SlugField(unique=True)
     title = models.CharField(max_length=30)
     desc = models.TextField()
     draft = models.BooleanField(default=False)
     timestamp = models.DateTimeField(auto_now_add=True)
-    tags = TaggableManager()
+    tag = models.ManyToManyField(Tag,related_name='doc_tag')
 
     class Meta:
         ordering=['timestamp']
         verbose_name = 'Doc'
         verbose_name_plural = 'Docs'
 
-    def _isPub(self):
-        return not(self.draft)
-    
-    def _isDraft(self):
-        return self.draft
-
     def __str__(self):
         return self.title
 
 
 class Course(models.Model):
-    slug =  models.SlugField(unique=True)
     title = models.CharField(max_length=30)
     desc = models.TextField()
     video = models.ManyToManyField(Video)
@@ -66,7 +60,7 @@ class Course(models.Model):
     doc = models.OneToOneField(Doc,on_delete=models.CASCADE,default=False,null=True)
     paid = models.BooleanField(default=False)
     timestamp = models.DateTimeField(auto_now_add=True)
-    tags = TaggableManager()
+    tag = models.ManyToManyField(Tag,related_name='course_tag')
 
     class Meta:
         ordering = ['timestamp']
@@ -75,25 +69,17 @@ class Course(models.Model):
 
     def __str__(self):
         return self.title
-
-    def _isPaid(self):
-        return self.paid
     
-    def _courseUrl(self):
-        return reverse("core:course", kwargs={
-            'slug': self.slug
-        })
 
 class Project(models.Model):
-    slug =  models.SlugField(unique=True)
-    title = models.CharField(max_length=30)
-    desc = models.TextField()
+    title = models.CharField(max_length=30,blank=True,null=True)
+    desc = models.TextField(blank=True,null=True)
     video = models.ManyToManyField(Video)
-    image = models.ImageField(upload_to='images/')
+    image = models.ImageField(upload_to='images/',blank=True,null=True)
     doc = models.OneToOneField(Doc,on_delete=models.CASCADE,default=False,null=True)
     paid = models.BooleanField(default=False)
     timestamp = models.DateTimeField(auto_now_add=True)
-    tags = TaggableManager()
+    tag = models.ManyToManyField(Tag,related_name='project_tag')
 
     class Meta:
         ordering = ['timestamp']
@@ -103,13 +89,6 @@ class Project(models.Model):
     def __str__(self):
         return self.title
 
-    def _isPaid(self):
-        return self.paid
-    
-    def _courseUrl(self):
-        return reverse("core:Project", kwargs={
-            'slug': self.slug
-        })
 
 class Comment(models.Model):
     video = models.ForeignKey(Video,on_delete=models.CASCADE,related_name='comments')
